@@ -25,7 +25,6 @@ jobs:
           echo "NGINX_TAG=${SHORT_SHA}" >> .env
           echo "MYSQL_TAG=${SHORT_SHA}" >> .env
           echo "PHPMYADMIN_TAG=${SHORT_SHA}" >> .env
-          docker-compose build
          
       - name: Build the Docker images
         run: docker-compose build
@@ -38,8 +37,6 @@ jobs:
         
       - name: Push the Docker Images to the Docker Hub
         run: | 
-          docker-compose push
-          - name: Tag built images as latest
           docker tag kashan1234/phpservicerepo:$PHP_TAG kashan1234/phpservicerepo:latest
           docker tag kashan1234/nginxrepo:$NGINX_TAG kashan1234/nginxrepo:latest
           docker tag kashan1234/mysqlserviceimg:$MYSQL_TAG kashan1234/mysqlserviceimg:latest
@@ -48,3 +45,4 @@ jobs:
           docker push kashan1234/nginxrepo:latest
           docker push kashan1234/mysqlserviceimg:latest
           docker push kashan1234/phpmyadminrepo:latest
+          docker-compose push
