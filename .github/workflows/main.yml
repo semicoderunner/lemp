@@ -39,9 +39,9 @@ jobs:
       - name: Push the Docker Images to the Docker Hub
         run: | 
           docker images
-          docker tag kashan1234/phpservicerepo:$SHORT_SHA kashan1234/phpservicerepo:latest
-          docker tag kashan1234/nginxrepo:$SHORT_SHA kashan1234/nginxrepo:latest
-          docker tag kashan1234/mysqlserviceimg:$SHORT_SHA kashan1234/mysqlserviceimg:latest
-          docker tag kashan1234/phpmyadminrepo:$SHORT_SHA kashan1234/phpmyadminrepo:latest
+          docker tag kashan1234/phpservicerepo:${SHORT_SHA} kashan1234/phpservicerepo:latest
+          docker tag kashan1234/nginxrepo:${SHORT_SHA} kashan1234/nginxrepo:latest
+          docker tag kashan1234/mysqlserviceimg:${SHORT_SHA} kashan1234/mysqlserviceimg:latest
+          docker tag kashan1234/phpmyadminrepo:${SHORT_SHA} kashan1234/phpmyadminrepo:latest
           docker images
           docker-compose push
