@@ -43,12 +43,10 @@ jobs:
       - name: Push the Docker Images to the Docker Hub
         run: | 
           cat .env
-          docker images
+          
           docker tag kashan1234/phpservicerepo:$IMAGE_TAG kashan1234/phpservicerepo:latest
-          echo "i executed"
+          docker tag kashan1234/nginxrepo:$IMAGE_TAG kashan1234/nginxrepo:latest
+          docker tag kashan1234/mysqlserviceimg:$IMAGE_TAG kashan1234/mysqlserviceimg:latest
+          docker tag kashan1234/phpmyadminrepo:$IMAGE_TAG kashan1234/phpmyadminrepo:latest
           docker images
-          docker tag kashan1234/nginxrepo:${SHORT_SHA} kashan1234/nginxrepo:latest
-          docker tag kashan1234/mysqlserviceimg:${SHORT_SHA} kashan1234/mysqlserviceimg:latest
-          docker tag kashan1234/phpmyadminrepo:${SHORT_SHA} kashan1234/phpmyadminrepo:latest
-          docker images
-          docker-compose push
+          docker-compose puseh
