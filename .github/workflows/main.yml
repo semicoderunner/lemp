@@ -26,6 +26,7 @@ jobs:
           echo "MYSQL_TAG=${SHORT_SHA}" >> .env
           echo "PHPMYADMIN_TAG=${SHORT_SHA}" >> .env
           echo "PHP_TAG=${SHORT_SHA}" >> $GITHUB_ENV
+          cat $PHP_TAG
          
       - name: Build the Docker images
         run: docker-compose build
