@@ -49,4 +49,4 @@ jobs:
           docker tag kashan1234/mysqlserviceimg:$IMAGE_TAG kashan1234/mysqlserviceimg:latest
           docker tag kashan1234/phpmyadminrepo:$IMAGE_TAG kashan1234/phpmyadminrepo:latest
           docker images
-          docker-compose puseh
+          docker-compose push
