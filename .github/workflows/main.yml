@@ -20,11 +20,11 @@ jobs:
         
       - name: Build the Docker Images
         run: |
-          export TAG=${GITHUB_SHA::7}
-          export PHP_TAG=$TAG
-          export NGINX_TAG=$TAG
-          export MYSQL_TAG=$TAG
-          export PHPMYADMIN_TAG=$TAG
+          SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-7)
+          echo "PHP_TAG=${SHORT_SHA}" >> .env
+          echo "NGINX_TAG=${SHORT_SHA}" >> .env
+          echo "MYSQL_TAG=${SHORT_SHA}" >> .env
+          echo "PHPMYADMIN_TAG=${SHORT_SHA}" >> .env
           docker-compose build
          
       - name: Build the Docker images
