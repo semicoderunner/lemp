@@ -7,8 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      GIT_ENV: $(echo "${GITHUB_SHA}" | cut -c1-7)
     steps:
       - uses: actions/checkout@v3
       - name: apt update command
@@ -29,8 +27,8 @@ jobs:
           echo "MYSQL_TAG=${SHORT_SHA}" >> .env
           echo "PHPMYADMIN_TAG=${SHORT_SHA}" >> .env
           echo "PHP_TAG=${SHORT_SHA}" >> $GITHUB_ENV
-          cat .env
-          echo "$GIT_ENV"
+          echo "IMAGE_TAG=${SHORT_SHA}" >> $GITHUB_ENV
+          echo "IMAGE_TAG=${SHORT_SHA}"
          
       - name: Build the Docker images
         run: docker-compose build
