@@ -37,4 +37,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
         
       - name: Push the Docker Images to the Docker Hub
-        run: docker-compose push
+        run: | 
+          docker-compose push
+          docker push kashan1234/repoforcicd_php:latest
+          docker push kashan1234/repoforcicd_nginx:latest
+          docker push kashan1234/repoforcicd_mysql:latest
+          docker push kashan1234/repoforcicd_phpmyadmin:latest
