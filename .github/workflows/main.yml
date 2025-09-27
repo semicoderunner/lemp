@@ -30,7 +30,7 @@ jobs:
           echo "IMAGE_TAG=${SHORT_SHA}" >> $GITHUB_ENV
           
       - name: check variable value
-        run:echo "IMAGE_TAG is $IMAGE_TAG"
+        run: echo "IMAGE_TAG is $IMAGE_TAG"
       - name: Build the Docker images
         run: docker-compose build
         
