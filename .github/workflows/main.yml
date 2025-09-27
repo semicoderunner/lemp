@@ -44,7 +44,9 @@ jobs:
         run: | 
           cat .env
           docker images
-          docker tag kashan1234/phpservicerepo:${SHORT_SHA} kashan1234/phpservicerepo:latest
+          docker tag kashan1234/phpservicerepo:$IMAGE_TAG kashan1234/phpservicerepo:latest
+          echo "i executed"
+          docker images
           docker tag kashan1234/nginxrepo:${SHORT_SHA} kashan1234/nginxrepo:latest
           docker tag kashan1234/mysqlserviceimg:${SHORT_SHA} kashan1234/mysqlserviceimg:latest
           docker tag kashan1234/phpmyadminrepo:${SHORT_SHA} kashan1234/phpmyadminrepo:latest
