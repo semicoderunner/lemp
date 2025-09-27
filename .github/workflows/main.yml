@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      GIT_ENV: staging
+      GIT_ENV: $(echo "${GITHUB_SHA}" | cut -c1-7)
     steps:
       - uses: actions/checkout@v3
       - name: apt update command
@@ -30,7 +30,6 @@ jobs:
           echo "PHPMYADMIN_TAG=${SHORT_SHA}" >> .env
           echo "PHP_TAG=${SHORT_SHA}" >> $GITHUB_ENV
           cat .env
-          echo PHP_TAG=${SHORT_SHA} >> $GIT_ENV
           echo "$GIT_ENV"
          
       - name: Build the Docker images
