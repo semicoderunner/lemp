@@ -20,7 +20,12 @@ jobs:
         
       - name: Build the Docker Images
         run: |
-         docker-compose build
+          export TAG=${GITHUB_SHA::7}
+          export PHP_TAG=$TAG
+          export NGINX_TAG=$TAG
+          export MYSQL_TAG=$TAG
+          export PHPMYADMIN_TAG=$TAG
+          docker-compose build
          
       - name: Build the Docker images
         run: docker-compose build
