@@ -65,6 +65,6 @@ jobs:
             sudo apt update
             sudo cd /
             sudo touch secret.txt
-            echo "save to file" >> secret.txt"
+            echo "save to file" >> secret.txt""
             echo "login success"
       
