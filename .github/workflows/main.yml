@@ -54,3 +54,11 @@ jobs:
           docker push kashan1234/mysqlserviceimg:latest
           docker push kashan1234/phpmyadminrepo:latest
           docker-compose push
+      - name: login to ec2 for deployment
+        run: | 
+          echo "${{ secrets.EC2_SSH_KEY }}" > ec2-key.pem
+          chmod 600 ec2-key.pem
+      - name: SSH and deploy
+        run: ssh -i "ec2-key.pem" ubuntu@54.167.78.116
+             echo "login success"
+      
