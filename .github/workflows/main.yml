@@ -60,12 +60,12 @@ jobs:
           chmod 600 ec2-key.pem
       - name: SSH and deploy
         run: | 
-            scp -o StrictHostKeyChecking=no -i ec2-key.pem docker-compose.yml ubuntu@54.167.78.116:/docker-compose.yml
+            scp -o StrictHostKeyChecking=no -i ec2-key.pem docker-compose.yml ubuntu@54.167.78.116:/home/ubuntu/docker-compose.yml
             ssh -o StrictHostKeyChecking=no -i ec2-key.pem ubuntu@54.167.78.116 << 'EOF'
             echo "hello"
             sudo -i
             apt update
-            cd /
+            cd /home/ubuntu
             apt install docker.io -y
             curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
             chmod +x /usr/local/bin/docker-compose
