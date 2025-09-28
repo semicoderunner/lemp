@@ -65,8 +65,17 @@ jobs:
             sudo -i
             apt update
             cd /
-            touch kashan.txt
-            echo "save to file" >> kashan.txt
+            apt install docker.io
+            curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+            docker-compose --version
+            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+            docker pull kashan1234/phpmyadminrepo:latest
+            docker pull kashan1234/mysqlserviceimg:latest
+            docker pull kashan1234/phpservicerepo:latest
+            docker pull kashan1234/nginxrepo:latest
+            docker images
+            docker-compose up -d
             EOF
             echo "login success"
       
