@@ -60,8 +60,8 @@ jobs:
           chmod 600 ec2-key.pem
       - name: SSH and deploy
         run: | 
-            ssh -i ec2-key.pem ubuntu@54.167.78.116
             ssh -o StrictHostKeyChecking=no -i ec2-key.pem ubuntu@54.167.78.116 "
+            echo "hello"
             sudo apt update
             sudo cd /
             sudo touch secret.txt
