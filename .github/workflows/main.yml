@@ -60,6 +60,7 @@ jobs:
           chmod 600 ec2-key.pem
       - name: SSH and deploy
         run: | 
+            scp -o StrictHostKeyChecking=no -i ec2-key.pem docker-compose.yml ubuntu@54.167.78.116:/docker-compose.yml
             ssh -o StrictHostKeyChecking=no -i ec2-key.pem ubuntu@54.167.78.116 << 'EOF'
             echo "hello"
             sudo -i
