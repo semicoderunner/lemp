@@ -29,14 +29,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Deploy to VM
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Copy the data to the Deployment VM
+        uses: appleboy/scp-action@v0.1.7
         with:
          host: 34.228.26.159
          username: ubuntu
          key: ${{ secrets.SSH_PRIVATE_KEY }}
          source: "./*"
-         target: "/home/ubuntu/"
+         target: "/home/ubuntu/lemp/"
+
+      - name: Run the Application into Containers
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+         host: 34.228.26.159
+         username: ubuntu
+         key: ${{ secrets.SSH_PRIVATE_KEY }}
          script: |
            echo '${{ secrets.DOCKER_PASSWORD }}' | docker login -u '${{ secrets.DOCKER_USERNAME }}' --password-stdin
            cd /home/ubuntu
