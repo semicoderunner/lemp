@@ -29,19 +29,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup SSH for the Deployment VM
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 34.228.26.159 >> ~/.ssh/known_hosts
-          ssh -itt -oStrictHostKeyChecking=no ubuntu@34.228.26.159
-          
-      - name: Log in to Docker Hub to Pull Images
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+         host: 34.228.26.159
+         username: ubuntu
+         key: ${{ secrets.SSH_PRIVATE_KEY }}
+         script: |
+           echo '${{ secrets.DOCKER_PASSWORD }}' | docker login -u '${{ secrets.DOCKER_USERNAME }}' --password-stdin
+           docker compose pull
+           docker compose up -d
 
-      - name: Pull and Start App
-        run: |
-          docker compose pull
-          docker compose up -d
