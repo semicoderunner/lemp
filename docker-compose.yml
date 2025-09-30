@@ -8,7 +8,7 @@ services:
     build:
       context: ./.docker/nginx
       dockerfile: Dockerfile
-    image: frehman/nginximages:${BUILD_NUMBER}
+    image: frehman/nginximages:${BUILD_NUMBER}  #The Build Number is GitHub Actions Pipeline Number. Each build will create a new tag.
     ports:
       - 80:80
     volumes:
