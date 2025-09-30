@@ -23,25 +23,4 @@ jobs:
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker compose push
 
-  Deploy-App:
-    runs-on: devopsclass
-    needs: Build-App
-    steps:
-      - uses: actions/checkout@v3
-
-
-      - name: Run the Application into Containers
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-         host: 34.228.26.159
-         username: ubuntu
-         key: ${{ secrets.SSH_PRIVATE_KEY }}
-         script: |
-           echo '${{ secrets.DOCKER_PASSWORD }}' | docker login -u '${{ secrets.DOCKER_USERNAME }}' --password-stdin
-           docker pull frehman/nginximages:${{ github.run_number }}
-           docker pull frehman/phpimages:${{ github.run_number }}
-           docker pull frehman/mysqlimages:${{ github.run_number }}
-           docker pull frehman/myadminimages:${{ github.run_number }}
-           export BUILD_NUMBER=${{ github.run_number }}
-           docker compose up -d
     
