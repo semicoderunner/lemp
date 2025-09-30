@@ -18,7 +18,7 @@ jobs:
       - name: version check
         run: docker-compose --version
         
-      - name: Build the Docker Images
+      - name: sudo Build the Docker Images
         
         run: |
           SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-7)
