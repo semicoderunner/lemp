@@ -32,7 +32,7 @@ jobs:
           #echo "PHP_TAG=${SHORT_SHA}" >> $GITHUB_ENV
           #echo "IMAGE_TAG=${SHORT_SHA}" >> $GITHUB_ENV
           
-      - name: check variable value
+     # - name: check variable value
        # run: echo "IMAGE_TAG is $IMAGE_TAG"
       - name: Build the Docker images
         run: sudo docker-compose build
