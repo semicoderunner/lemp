@@ -24,16 +24,16 @@ jobs:
       
 
 
-          SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-7)
-          echo "PHP_TAG=${SHORT_SHA}" >> .env
-          echo "NGINX_TAG=${SHORT_SHA}" >> .env
-          echo "MYSQL_TAG=${SHORT_SHA}" >> .env
-          echo "PHPMYADMIN_TAG=${SHORT_SHA}" >> .env
-          echo "PHP_TAG=${SHORT_SHA}" >> $GITHUB_ENV
-          echo "IMAGE_TAG=${SHORT_SHA}" >> $GITHUB_ENV
+          #SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-7)
+          #echo "PHP_TAG=${SHORT_SHA}" >> .env
+          #echo "NGINX_TAG=${SHORT_SHA}" >> .env
+          #echo "MYSQL_TAG=${SHORT_SHA}" >> .env
+          #echo "PHPMYADMIN_TAG=${SHORT_SHA}" >> .env
+          #echo "PHP_TAG=${SHORT_SHA}" >> $GITHUB_ENV
+          #echo "IMAGE_TAG=${SHORT_SHA}" >> $GITHUB_ENV
           
       - name: check variable value
-        run: echo "IMAGE_TAG is $IMAGE_TAG"
+       # run: echo "IMAGE_TAG is $IMAGE_TAG"
       - name: Build the Docker images
         run: sudo docker-compose build
         
@@ -45,43 +45,9 @@ jobs:
         
       - name: Push the Docker Images to the Docker Hub
         run: | 
-          cat .env
-          
-          docker tag kashan1234/phpservicerepo:$IMAGE_TAG kashan1234/phpservicerepo:latest
-          docker tag kashan1234/nginxrepo:$IMAGE_TAG kashan1234/nginxrepo:latest
-          docker tag kashan1234/mysqlserviceimg:$IMAGE_TAG kashan1234/mysqlserviceimg:latest
-          docker tag kashan1234/phpmyadminrepo:$IMAGE_TAG kashan1234/phpmyadminrepo:latest
           docker images
-          docker push kashan1234/phpservicerepo:latest
-          docker push kashan1234/nginxrepo:latest
-          docker push kashan1234/mysqlserviceimg:latest
-          docker push kashan1234/phpmyadminrepo:latest
           docker-compose push
-      - name: login to ec2 for deployment
-        run: | 
-          echo "${{ secrets.EC2_SSH_KEY }}" > ec2-key.pem
-          chmod 600 ec2-key.pem
-      - name: SSH and deploy
-        run: | 
-            ssh -o StrictHostKeyChecking=no -i ec2-key.pem ubuntu@54.167.78.116 << 'EOF'
-            echo "hello"
-            sudo -i
-            apt update
-            cd /home/ubuntu
-            apt install docker.io -y
-            docker stop $(docker ps -a -q)
-            docker rm $(docker ps -a -q)
-            docker rmi $(docker images -a -q)
-            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-            docker pull kashan1234/phpmyadminrepo:latest
-            docker pull kashan1234/mysqlserviceimg:latest
-            docker pull kashan1234/phpservicerepo:latest
-            docker pull kashan1234/nginxrepo:latest
-            docker images
-            docker run -d -p 80:80 --name cont1 kashan1234/nginxrepo:latest
-            docker run -d -p 8080:80 --name cont2 kashan1234/phpmyadminrepo:latest
-            docker run -d --name cont3 kashan1234/mysqlserviceimg:latest
-            docker run -d --name cont4 kashan1234/phpservicerepo:latest
-            EOF
-            echo "login success"
+  
+      
+
       
