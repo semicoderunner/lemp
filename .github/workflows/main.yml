@@ -42,5 +42,6 @@ jobs:
            docker pull frehman/phpimages:${{ github.run_number }}
            docker pull frehman/mysqlimages:${{ github.run_number }}
            docker pull frehman/myadminimages:${{ github.run_number }}
-           
+           export BUILD_NUMBER=${{ github.run_number }}
+           docker compose up -d
     
