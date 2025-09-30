@@ -38,9 +38,9 @@ jobs:
          key: ${{ secrets.SSH_PRIVATE_KEY }}
          script: |
            echo '${{ secrets.DOCKER_PASSWORD }}' | docker login -u '${{ secrets.DOCKER_USERNAME }}' --password-stdin
-           docker pull frehman/nginximages:${GITHUB_RUN_NUMBER}
-           docker pull frehman/phpimages:${GITHUB_RUN_NUMBER}
-           docker pull frehman/mysqlimages:${GITHUB_RUN_NUMBER}
-           docker pull frehman/myadminimages:${GITHUB_RUN_NUMBER}
+           docker pull frehman/nginximages:${{ github.run_number }}
+           docker pull frehman/phpimages:${{ github.run_number }}
+           docker pull frehman/mysqlimages:${{ github.run_number }}
+           docker pull frehman/myadminimages:${{ github.run_number }}
            
     
