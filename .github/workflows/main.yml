@@ -25,4 +25,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }} 
         
       - name: Push the Docker Images to the Docker Hub
-        run: sudo docker-compose push
+        run: |
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          sudo docker-compose push
