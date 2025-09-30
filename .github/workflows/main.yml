@@ -16,7 +16,7 @@ jobs:
          docker compose version
         
       - name: Build the Docker images
-        run: docker compose build
+        run: sudo docker compose build
         
       - name: Logging into the Docker Hub
         uses: docker/login-action@v1
@@ -25,4 +25,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
         
       - name: Push the Docker Images to the Docker Hub
-        run: docker compose push
+        run: sudo docker compose push
