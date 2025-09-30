@@ -21,9 +21,7 @@ jobs:
       - name: sudo Build the Docker Images
         
         run: |
-          sudo usermod -aG docker $USER
-          newgrp docker
-          sudo usermod -aG docker self-hosted
+          sudo usermod -aG docker ubuntu
 
           SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-7)
           echo "PHP_TAG=${SHORT_SHA}" >> .env
