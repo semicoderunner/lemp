@@ -5,7 +5,7 @@ on:
     - main
 jobs:
   Build-App:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Install Docker Compose on the Runner
