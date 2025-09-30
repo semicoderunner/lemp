@@ -6,6 +6,8 @@ on:
 jobs:
   Build-App:
     runs-on: ubuntu-latest
+    env:
+      BUILD_NUMBER: ${{ github.run_number }}
     steps:
       - uses: actions/checkout@v3
       - name: Install Docker Compose on the Runner
@@ -15,12 +17,19 @@ jobs:
          chmod +x ~/.docker/cli-plugins/docker-compose
          docker compose version
         
-      - name: Build the Docker images
-        run: docker compose build     #the command here was docker-compose build
-        
-      - name: Push the Docker Images to the Docker Hub
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker compose push
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 
 
-    
+      - name: Login to Amazon Elastic Container Registry
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build Docker Images with their respective tags
+        run: docker compose build
+          
+      - name: Push Docker images to Amazon Elastic Container Registry
+        run: docker compose push   
